@@ -1,0 +1,405 @@
+@mixin overTab {
+  @media print, screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+body {
+  background-color: white;
+}
+
+.header {
+  background-color: black;
+  .header-fixed {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    z-index: 2;
+  }
+
+  .header-logo {
+    width: 200px;
+    margin-left: 30px;
+    > img {
+      width: 200px;
+    }
+  }
+
+  .nav-btn {
+    width: 50px;
+    height: 40px;
+    appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    position: relative;
+    right: 30px;
+    @include overTab {
+      display: none;
+    }
+    &.-active {
+      span {
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        transition: transform 0.2s ease;
+        &:first-child {
+          transform: rotate(45deg);
+        }
+        &:nth-child(2) {
+          transform: rotate(45deg);
+        }
+        &:last-child {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+    span {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background-color: white;
+      display: block;
+      transition: transform 0.2s ease;
+      &:first-child {
+        top: 0;
+      }
+      &:nth-child(2) {
+        top: 0px;
+        bottom: 0;
+        margin: auto;
+      }
+      &:last-child {
+        bottom: 0;
+      }
+    }
+  }
+
+  .nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding-top: 100px;
+    z-index: 1;
+    background-color: black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    @include overTab {
+      width: initial;
+      background-color: transparent;
+      padding-top: 0;
+      z-index: 3;
+      left: inherit;
+      right: 0;
+      top: 20px;
+      opacity: 1;
+      visibility: visible;
+    }
+    &.-active {
+      opacity: 0.8;
+      visibility: visible;
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  .nav-list {
+    text-align: center;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    @include overTab {
+      display: flex;
+      margin-right: 40px;
+      margin-bottom: 0;
+    }
+    .item {
+      margin-top: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid gray;
+      @include overTab {
+        border: none;
+      }
+      + .item {
+        @include overTab {
+          margin-left: 20px;
+        }
+      }
+    }
+    a {
+      color:white;
+      font-size: 24px;
+      text-decoration: none;
+      @include overTab {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.top {
+  margin-top: 100px;
+  height: 680px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  position: relative;
+  background-image: url(../image/main.jpg);
+  background-blend-mode:lighten;
+  background-position: center;
+  background-size: cover;
+  color: black;
+
+  .message {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    transform: translateY(-50%) translateX(-50%);
+    .top-title {
+      font-size: 48px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    .sub-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      @include overTab {
+        font-size: 35px;
+      }
+    }
+  }
+}
+
+.common-section {
+  font-size: 18px;
+  padding-top: 150px;
+  margin-top: -100px;
+  
+  .common-title {
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    .main {
+      font-weight: bold;
+    }
+  }
+}
+
+.concept {
+  .concept-main {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px;
+    text-align: center;
+  }
+  .sub {
+    margin: 20px;
+    text-align: center;
+    > p {
+      margin-bottom: 10px;
+    }
+  }
+  @include overTab {
+    .br-sp {
+      display: none;
+    }
+  }
+}
+
+
+
+.skill {
+  
+  .skill-list {
+    margin-top: 20px;
+    @include overTab {
+      display: flex;
+    }
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .skill-item {
+      border: 2px solid blue;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+      width: 80%;
+      padding-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      @include overTab {
+        width: 30%;
+      }
+      display: flex;
+      flex-flow: column-reverse;
+      
+      .desc {
+        margin: 10px;
+        .title {
+          margin-top: 10px;
+          margin-bottom: 20px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+
+      .image {
+        margin-right: auto;
+        margin-left: auto;
+        overflow: hidden;
+        > img {
+          width:  180px;
+          height: 180px;
+          border: 6px solid gray;
+          background-color: white;
+          border-radius: 50%;
+          background-size: 200px 200px;
+          background-position: right bottom;
+          @include overTab {
+            width:  220px;
+            height: 220px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.service {
+  
+  .service-list {
+    @include overTab {
+      display: flex;
+    }
+
+    .service-item {
+      flex: 1;
+      border: 2px solid red;
+      border-radius: 20px;
+      text-align: center;
+      display: flex;
+      flex-flow: column-reverse;
+      width: 80%;
+      padding-top: 20px;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      @include overTab {
+        width: 30%;
+        margin: 20px 10px;
+      }
+
+      .text {
+        margin: 10px;
+        .title {
+          margin-top: 10px;
+          margin-bottom: 20px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+      .image {
+        margin-right: auto;
+        margin-left: auto;
+        > img {
+          background-image: url(../image/data.jpg);
+          width:  180px;
+          height: 180px;
+          border: 6px solid gray;
+          border-radius: 50%;
+          background-size: 200px 200px;
+          background-position: right bottom;
+          @include overTab {
+            width:  220px;
+            height: 220px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.work {
+  
+  .work-list {
+    @include overTab {
+      display: flex;
+    }
+
+    .work-item {
+      flex: 1;
+      border: 2px solid black;
+      border-radius: 20px;
+      text-align: center;
+      width: 80%;
+      padding-top: 20px;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-flow: column-reverse;
+      @include overTab {
+        width: 30%;
+        margin: 20px 10px;
+      }
+      .text {
+        padding-top: 20px;
+        font-size: 20px;
+        // font-weight: bold;
+        margin: 10px;
+      }
+      img {
+        width: 80%;
+      }
+    }
+  }
+}
+
+.contact {  
+  .contact-content {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    @include overTab {
+      font-size: 18px;
+    }
+  }
+}
+
+.footer {
+  margin-top: 20px;
+  padding-bottom: 10px;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+
+  .copyright {
+    padding-top: 6px;
+  }
+  
+  @include overTab {
+    font-size: 20px;
+    position:relative;
+    height: 60px;
+    width: 100%;
+  
+    > .inner {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+    }
+  }
+}
